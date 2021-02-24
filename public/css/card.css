@@ -1,0 +1,230 @@
+.card{
+  /*max-width: 400px;*/
+    min-height: 590px;
+}
+/**{*/
+/*    overflow-x: hidden;*/
+/*}*/
+.header-img{
+    height: 45px;
+    width: 45px;
+}
+.Master-contentWrapper-4173{
+    overflow-x: hidden;
+}
+.check, .nav-link{
+    cursor: pointer;
+}
+.card-strip{
+    overflow: hidden;
+    height: 200px;
+}
+.card-container img{
+    min-height: 100%;
+    overflow: hidden;
+}
+.card-container input ,.card-container select {outline:none;}
+.circle-picker{
+    display: flex !important;
+    justify-content: center;
+    width: 100% !important;
+    padding: 10px;
+    background: #00000024;
+
+}
+#root > div > div{
+    overflow-x: hidden !important;
+}
+/*.MuiGrid-spacing-xs-8 > .MuiGrid-item{*/
+/*    padding: 0 32px !important;*/
+/*}*/
+.map-show{
+    border-width: 1px;
+}
+.chrome-picker {
+    width:100% !important;
+}
+.MuiListItemIcon-root{
+    min-width: 30px !important;
+}
+.MuiListItemText-root{
+    min-width: 30% !important;
+}
+.t-item{
+    display: flex;
+    flex-direction: column;
+
+}
+.ymaps-2-1-75-search{
+    min-width: 500px;
+}
+.card{
+    overflow: hidden;
+}
+.barcode-container{
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    background-color: transparent;
+}
+.strip-image img{
+    height: 100%;
+    width: auto;
+}
+.wallet-row{
+    border:  .5px dashed;
+}
+.wallet-item:hover, .barcode:hover{
+    border:  .5px dashed;
+}
+.primary-field-content{
+    position: absolute;
+    top: 15px;
+    background-color: transparent;
+    width: 75%;
+    height: 75%;
+    left: 10%;
+}
+
+.primary-field-content input{
+    background-color: transparent;
+}
+
+.primary-row, .primary-fields, .first-primary, #firstPrimary{
+    height: 100%;
+}
+
+.primary-row, .primary-fields .first-primary  input{
+    font-size: 35px;
+}
+.barcode input{
+    margin-top: 20px;
+    text-align: center;
+}
+.barcode{
+    background: #fff;
+    padding: 20px 20px;
+    max-width: 270px;
+    margin: auto;
+}
+.barcode-image{
+    text-align: center;
+}
+.wallet-item, .barcode{
+    cursor: pointer;
+}
+.auxiliary  > div{
+    width: 35%;
+}
+.auxiliary {
+    margin-top: 15px;
+    min-height: 55px;
+}
+.auxiliary > div:hover {
+    border: 1px dashed;
+}
+.backside-item input{
+    border: .5px dashed;
+}
+.backside{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 590px;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+.backside-item{
+    padding: 9px;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid #e5eaee;
+    margin: 10px 0;
+}
+.backside-buttons .btn{
+    margin: 10px;
+}
+.backside-buttons{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.strip-image{
+    height: 235px;
+    overflow: hidden;
+}
+.panel-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.wallet{
+    max-width: 450px;
+}
+.panel-bar{
+    height: 80vh;
+    max-width: 670px;
+    padding: 25px;
+    background: #9b939317;
+    overflow-y: scroll;
+}
+.test-link{
+    padding: 10px;
+    border: 1px solid #bcbcbc;
+    background: #00000008;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.fl-st{
+    justify-content: flex-start;
+}
+.barcodeTypes .active{
+
+}
+.bk > div{
+    width: 40%;
+}
+.test{
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+
+}
+.barcodeTypes img{
+    width: 100%;
+}
+.barcodeTypes {
+    min-height: 325px;
+    width: 80%;
+    margin: auto;
+}
+
+.barcodeTypes .active{
+    border: 2px solid #0836ff4f;
+    border-radius: 4px;
+}
+.barcodeTypes .elem:hover{
+    cursor: pointer;
+    border: 2px solid #0836ff4f;
+    border-radius: 4px;
+}
+.barcodeTypes > div{
+    margin: 5px 0;
+}
+.barcodeTypes div{
+    justify-content: space-between;
+}
+/*.barcodeTypes > div{*/
+/*    width: 59%;*/
+/*    padding: 10px;*/
+/*    cursor: pointer;*/
+/*}*/
+/*.barcodeTypes img{*/
+/*    width: 100%;*/
+/*}*/
+/*.barcodeTypes{*/
+/*    display: flex;*/
+/*}*/
