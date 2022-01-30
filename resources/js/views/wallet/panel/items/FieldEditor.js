@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {DatePicker, MuiPickersUtilsProvider} from 'material-ui-pickers';
+import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
 export default function FieldEditor (props){

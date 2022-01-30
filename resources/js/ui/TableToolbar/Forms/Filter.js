@@ -15,7 +15,7 @@ import {
     withStyles,
 } from '@material-ui/core';
 
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 
 import MomentUtils from '@date-io/moment';
 
