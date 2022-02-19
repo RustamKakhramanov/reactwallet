@@ -40,7 +40,7 @@ if (! function_exists('_test_user')) {
     /**
      * Login and get the then authenticated user.
      *
-     * @return App\User
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     function _test_user()
     {
@@ -70,8 +70,7 @@ if (! function_exists('_not_image_format')) {
     function _not_image_format($format)
     {
         return
-            $format !== 'png' && $format !== 'jpg' && $format != 'jpeg' && $format !== 'svg' ?
-            true : false;
+            $format !== 'png' && $format !== 'jpg' && $format != 'jpeg' && $format !== 'svg';
     }
 }
 

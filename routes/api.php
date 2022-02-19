@@ -11,6 +11,9 @@
 |
 */
 //Route::get('/sd', '\App\Http\Controllers\Api\V1\ClientsController@list');
+
+use Illuminate\Support\Facades\Route;
+
 Route::namespace('Api')->name('api.')->group(function () {
     Route::namespace('V1')->name('v1.')->prefix('v1')->group(function () {
         Route::namespace('Auth')->name('auth.')->prefix('auth')->group(function () {
@@ -38,8 +41,6 @@ Route::namespace('Api')->name('api.')->group(function () {
             Route::get('/change/{id}/{type}/{value}', 'ClientsController@changeField')->middleware('auth:api');
             Route::patch('/{id}', 'ClientsController@update')->middleware('auth:api');;
             Route::delete('/{id}', 'ClientsController@delete')->middleware('auth:api');;
-            // Route::post('/register', 'ClientsController@register');
-
         });
 
         Route::middleware('auth:api')->group(function () {

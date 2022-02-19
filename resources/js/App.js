@@ -49,9 +49,7 @@ function App(props) {
     /**
      * Record API responses & do something.
      *
-     * @param {any} interceptor
      *
-     * @param {undefined}
      */
     const addResponseInterceptor = () => {
         const responseInterceptor = axios.interceptors.response.use(

@@ -5,6 +5,7 @@ namespace App\Traits;
 
 
 use Illuminate\Support\Str;
+use PKPass\PKPass;
 
 trait WalletFields
 {
@@ -43,9 +44,9 @@ trait WalletFields
         return self::$barcodeFormats[$format];
     }
 
-    public static function unsetElem($variable, $config, $object = false){
+    public static function unsetElem($variable, $config){
         foreach ($config as $item){
-            if($object)
+            if(is_object($variable))
                 unset($variable->$item);
             else
                 unset($variable[$item]);
@@ -87,7 +88,7 @@ trait WalletFields
         $pass = new PKPass($path, $pass);
         $token = Str::random(32);
         $pass->setData('{
-            "passTypeIdentifier": "'.config('wallet.passTypeIdentifier').'", 
+            "passTypeIdentifier": "'.config('wallet.passTypeIdentifier').'",
             "formatVersion": 1,
             "organizationName": "A Cosmetics | Nature Republic",
             "teamIdentifier": "YW3A55PBT7",
@@ -112,12 +113,12 @@ trait WalletFields
                         "value": "' . $name . '"
                     }
                 ],
-                "auxiliaryFields":[ 
+                "auxiliaryFields":[
                     {
                         "key": "balance", "label": "Баланс", "value": 101, "currencyCode": "KZT", "changeMessage": "'.$name.', ваш баланс изменился %@."
                     }
                 ],
-                
+
                 "headerFields":[ {
                         "key": "info", "label": "Скидка", "value": "'.config('wallet.discount').'%", "changeMessage": "'.$name.', ваша скидка %@."
                     }
@@ -133,7 +134,7 @@ trait WalletFields
                         "label": "Номер вашей карты",
                         "value": "' . $number . '"
                     }
-                    
+
                 ]
             },
             "barcode": {

@@ -27,9 +27,8 @@ class CreateCardTable extends Migration
             $table->boolean('updated')->default(false);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->binary('data');
         });
-        DB::statement("ALTER TABLE cards ADD data LONGBLOB");
-
     }
 
     /**

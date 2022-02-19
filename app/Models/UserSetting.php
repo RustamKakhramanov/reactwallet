@@ -13,4 +13,4 @@ class UserSetting extends Model
         return $this->belongsTo('App\User');
     }
 }
-?>
+

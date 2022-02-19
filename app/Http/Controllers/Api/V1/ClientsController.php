@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Wallet\Card;
 use App\Models\Wallet\Layout;
+use App\Services\CardService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
@@ -34,7 +35,11 @@ class ClientsController extends Controller
         }else {
             $layout = Layout::find($post['layout_id']);
         }
+
+
         $client = $company->clients()->create($post);
+        //CardService::createClientWithCardByCompany($client)->save();
+
         $model = new Card();
         $model->imagesPath = 'uploads/user-layouts/'.$layout->creator->id.'/'.$layout->id.'/';
         $model->owner = $client;
@@ -45,9 +50,7 @@ class ClientsController extends Controller
         return $model->createCard($cardValues,  $layout->type, true) ? $client->id : response('', 500);
     }
 
-    public function  testReg(){
 
-    }
     public function list(Request $request){
         $user = Auth::user();
         return response()->json($user->clients()->where('deleted', false)->orderBy('id', 'desc')->get()->toArray());
