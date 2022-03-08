@@ -1,6 +1,6 @@
 <?php
     return [
-        'cert_path' => '/uploads/Certificates/certificate.p12',
+        'cert_path' => base_path('certificates/certificate.p12'),
         'cert_pass' => 'QazWsx12',
         'dev_cert' => '',
         'default_balance' => '1000',
@@ -8,7 +8,7 @@
         'team_id' => 'YW3A55PBT7',
         'discount' => '5',
         'passTypeIdentifier' => 'pass.kz.cloudsystem.disscountCard',
-        'api_url' => 'https://29c8a9db.ngrok.io/api',
+        'api_url' => url('/api'),
         'background' => 'rgb(55, 117, 50)',
         'text_color' => 'rgb(255, 255, 255)',
         'pattern' => 'nature',

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use App\User;
 use App\Client;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ClientsController extends Controller
 {
@@ -108,44 +110,55 @@ class ClientsController extends Controller
         if($post){
             $request->validate(['name' => 'required', 'phone' => 'required|min:17|max:17']);
             $phone = str_replace('_', '_', $post['phone']);
+
             if(!$creator->clients()->where('phone', $phone)->first() && $post['name'] && iconv_strlen($phone)) {
-                $settingsObject = $creator->settings()->where('type', 'loyalty')->first();
-                $saveParam = [
-                    'name' => $post['name'],
-                    'phone' => $phone,
-                    'layout_id' => $id,
-                ];
+                try {
+                    DB::beginTransaction();
 
-                if($settingsObject) {
-                    $setting = json_decode($settingsObject->value);
-                    $saveParam['discount'] = $setting->discount;
-                    $saveParam['balance'] = $setting->balance;
+                    $settingsObject = $creator->settings()->where('type', 'loyalty')->first();
+                    $saveParam = [
+                        'name' => $post['name'],
+                        'phone' => $phone,
+                        'layout_id' => $id,
+                    ];
+
+                    if($settingsObject) {
+                        $setting = json_decode($settingsObject->value);
+                        $saveParam['discount'] = $setting->discount;
+                        $saveParam['balance'] = $setting->balance;
+                    }
+
+                    $client = $creator->clients()->create($saveParam);
+
+                    $card = new Card();
+                    $card->imagesPath = 'uploads/user-layouts/'.$layout->creator->id.'/'.$layout->id.'/';
+                    $card->owner = $client;
+                    $body = json_decode($layout->body);
+                    $body->card->organization_name = $layout->creator->organization_name;
+                    $cardValues = $card->fieldsFill($body);
+                    $card = $card->createCard($cardValues,  $layout->type, true);
+                    $card->layout_id = $layout->id;
+                    $card->save();
+
+                    if($card){
+                        $fileName = 'pass.pkpass';
+                        return response($card->data, 200, [
+                            'Content-Description' => 'File Transfer',
+                            'Content-Type' => 'application/vnd.apple.pkpass',
+                            'Content-Transfer-Encoding' => 'binary',
+                            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+                            'Pragma: public',
+                            'Last-Modified' => gmdate('D, d M Y H:i:s T'),
+                        ]);
+                    }
+
+                    DB::commit();
+                }catch (\Exception $exception) {
+                    DB::rollBack();
+                    throw new HttpException(400, $exception->getMessage());
                 }
 
-                $client = $creator->clients()->create($saveParam);
-
-                $card = new Card();
-                $card->imagesPath = 'uploads/user-layouts/'.$layout->creator->id.'/'.$layout->id.'/';
-                $card->owner = $client;
-                $body = json_decode($layout->body);
-                $body->card->organization_name = $layout->creator->organization_name;
-                $cardValues = $card->fieldsFill($body);
-                $card = $card->createCard($cardValues,  $layout->type, true);
-                $card->layout_id = $layout->id;
-                $card->save();
-
-                if($card){
-                    $fileName = 'pass.pkpass';
-                    return response($card->data, 200, [
-                        'Content-Description' => 'File Transfer',
-                        'Content-Type' => 'application/vnd.apple.pkpass',
-                        'Content-Transfer-Encoding' => 'binary',
-                        'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-                        'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-                        'Pragma: public',
-                        'Last-Modified' => gmdate('D, d M Y H:i:s T'),
-                    ]);
-                }
             }else {
                 $error =  trans('validation.has_register') ;
             }

@@ -28,18 +28,23 @@
                 </div>
             </div>
         </div>
-        @if ($errors->any())
+        @if($errorN)
             <div class="alert alert-danger mt-8">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        @if($errorN)
-                            <li>{{ $errorN }}</li>
-                        @endif
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                <li>{{ $errorN }}</li>
             </div>
         @endif
+{{--        @if ($errors->any())--}}
+{{--            <div class="alert alert-danger mt-8">--}}
+{{--                <ul>--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        @if($errorN)--}}
+{{--                            <li>{{ $errorN }}</li>--}}
+{{--                        @endif--}}
+{{--                        <li>{{ $error }}</li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        @endif--}}
     </body>
 
 

@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Models\Wallet;
+use App\Client;
 use App\Models\Wallet\Pattern\Wallet;
 use App\Models\Wallet\Pattern\TypeCard;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use PKPass\PKPass;
 use Illuminate\Support\Str;
@@ -10,13 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use \App\Traits\UploadWalletImages;
 use \App\Traits\WalletFields;
 
-
+/**
+ * @property User | boolean $owner
+ */
 class Card extends Model
 {
     use UploadWalletImages,
         WalletFields;
     protected $table = 'cards',
-        $fillable = ['id', 'client_id', 'username', 'transactions', 'pass_type_identifier', 'serial_number', 'authentication_token', 'jsonData', 'data', 'balance', 'discount', 'updated'];
+        $fillable = ['id', 'layout_id', 'client_id', 'username', 'transactions', 'pass_type_identifier', 'serial_number', 'authentication_token', 'jsonData', 'data', 'balance', 'discount', 'updated'];
 
     public $imagesPath,
         $owner = false;
@@ -116,7 +120,7 @@ class Card extends Model
         if ($type === 'generic' )
             $images[] = 'thumbnail';
 
-        $path = $_SERVER['DOCUMENT_ROOT'].config('wallet.cert_path');
+        $path = config('wallet.cert_path');
 
         $pass = config('wallet.cert_pass');
 
@@ -124,10 +128,11 @@ class Card extends Model
         $pass->setData(json_encode($values));
 
         foreach ($images as $image){
-            $pass->addFile($_SERVER['DOCUMENT_ROOT'].'/'.$this->imagesPath.$image.'.png');
+            $pass->addFile(public_path($this->imagesPath.$image.'.png'));
         }
 
         $file = $pass->create();
+
         if($file && $save) { // Create and output the
              return  self::create([
                 'client_id' =>  $this->owner ? $this->owner->id : 1,
@@ -147,17 +152,17 @@ class Card extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Client');
+        return $this->belongsTo(Client::class);
     }
 
     public function device()
     {
-        return $this->hasOne('App\Models\Wallet\Device');
+        return $this->hasOne(Device::class);
     }
 
     public function layout()
     {
-        return $this->belongsTo('App\Models\Wallet\Layout');
+        return $this->belongsTo(Layout::class);
     }
 
 }

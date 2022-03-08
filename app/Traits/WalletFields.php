@@ -145,10 +145,10 @@ trait WalletFields
             }
         }');
 
-        $pass->addFile($_SERVER['DOCUMENT_ROOT'].'/uploads/pattern/'.config('wallet.pattern').'/icon.png');
-        $pass->addFile($_SERVER['DOCUMENT_ROOT'].'/uploads/pattern/'.config('wallet.pattern').'/icon@2x.png');
-        $pass->addFile($_SERVER['DOCUMENT_ROOT'].'/uploads/pattern/'.config('wallet.pattern').'/logo.png');
-        $pass->addFile($_SERVER['DOCUMENT_ROOT'].'/uploads/pattern/'.config('wallet.pattern').'/strip.png');
+        $pass->addFile(public_path('uploads/pattern/'.config('wallet.pattern').'/icon.png'));
+        $pass->addFile(public_path('uploads/pattern/'.config('wallet.pattern').'/logo.png'));
+        $pass->addFile(public_path('uploads/pattern/'.config('wallet.pattern').'/strip.png'));
+        $pass->addFile(public_path('uploads/pattern/'.config('wallet.pattern').'/icon@2x.png'));
         $file = $pass->create();
         if($file) { // Create and output the
             self::create([
