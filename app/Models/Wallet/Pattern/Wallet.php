@@ -23,7 +23,7 @@ class Wallet
     public function  __construct($token, $number){
         $this->passTypeIdentifier =  config('wallet.passTypeIdentifier');
         $this->teamIdentifier = config('wallet.team_id');
-        $this->webServiceURL = config('wallet.api_url');
+        $this->webServiceURL = url(config('wallet.api_url'));
         $this->serialNumber =  $number;
         $this->authenticationToken =  $token;
     }

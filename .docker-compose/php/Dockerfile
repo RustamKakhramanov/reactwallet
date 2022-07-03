@@ -1,10 +1,3 @@
-# Stage 1 Install Dependencies
-FROM composer:2.0.8 as build
-COPY . /app
-WORKDIR /app
-
-RUN composer install --no-scripts
-
 FROM php:7.4.10-fpm
 
 RUN mkdir /app \
@@ -73,7 +66,10 @@ RUN mkdir /app \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pgsql pdo_pgsql
 
-RUN chmod -R a+w /app/storage/ /app/bootstrap/cache && chmod -R 777 /app/storage/
-RUN php artisan migrate
+RUN apt-get update \
+	&& apt-get install -y zip unzip curl git \
+	&& php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+	&& php composer-setup.php --install-dir=/usr/bin --filename=composer --version=2.1.3 \
+	&& php -r "unlink('composer-setup.php');"
 
 WORKDIR /app
